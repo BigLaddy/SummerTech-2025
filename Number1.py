@@ -1,3 +1,46 @@
+class Values:
+    def __init__(self,P1L,P1R,P2L,P2R):
+        self.P1L = P1L
+        self.P1R = P1R
+        self.P2L = P2L
+        self.P2R = P2R
+    def Combine(self,Turn):
+        if Turn == 1:
+            Total = self.P1L + self.P1R
+            x = self.P1L
+            Left = Total
+            Right = 0
+        elif Turn == 2:
+            Total = self.P2L + self.P1R
+            x = self.P2L
+            Left = Total
+            Right = 0
+            if Total >4:
+                Left = Total-(Total-4)
+                Right = Right + Total-4
+                print(Left,Right)
+        for Amount in range(0,Total):
+            if Left == x or Right == x:
+                 Left-=1
+                 Right+=1
+            print(Left,Right)
+            Answer=input("Would you like this combination?")
+            if Answer == "Yes":
+                if Turn == 1:
+                    self.P1L = Left
+                    self.P1R = Right
+                    print(self.P1L,self.P1R,"These are the new values")
+                if Turn == 2:
+                    self.P2L = Left
+                    self.P2R = Right
+                    print(self.P2L,self.P2R,"These are the new values")
+            else:
+                Left-=1
+                Right+=1
+                
+
+
+Values(1,1,1,1)
 Player1Left=1
 Player2Left=1
 Player1Right=1
@@ -36,8 +79,6 @@ def Attack(PLeft,PRight,ELeft,ERight,Turn):
         y=ERight
         ERight = PRight
         PRight=y 
-
-
     UsedHand=input("Would you like to use your left or right hand?")
     if UsedHand == "Left":
         AttackValue = PLeft
