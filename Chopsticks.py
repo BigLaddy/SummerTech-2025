@@ -2,8 +2,8 @@ class Values:
     def __init__(self):
         self.pl=1
         self.pr=1
-        self.el=1
-        self.er=1
+        self.el=0
+        self.er=0
         self.swaps = 0
     def Swap(self):
         X = self.pl
@@ -25,7 +25,6 @@ class Values:
                 self.pl = Left
                 self.pr = Total - Left
                 Con = False
-                print(self.pl,self.pr,self.el,self.er)
     def Attack(self):
         if input("Which hand would you like to use?") == "Left":
             AV = self.pl
@@ -39,7 +38,6 @@ class Values:
             self. er = 0
         if self.el > 4:
             self.el = 0
-        print(self.pl,self.pr,self.el,self.er)
     def CheckWin(self):
         if self.el == 0 and self.er == 0:
             if self.swaps %2 == 1:
@@ -53,137 +51,14 @@ class Values:
             self.Attack()
         else:
             self.Combine()
+    def Display(self):
+        if self.swaps %2 == 1:
+            print("Player 1:",self.el,self.er, "Player 2:",self.pl,self.er)
+        else:
+            print("Player 1:",self.pl,self.pr, "Player 2:",self.el,self.er)
 Game = Values()
 while True:
+    Game.Display()
     Game.Choice()
     Game.CheckWin()
     Game.Swap()
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
