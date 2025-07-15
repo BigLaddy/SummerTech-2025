@@ -31,17 +31,14 @@ class pathfinder():
         self.Traveled = Traveled
         self.Paths=Paths
     def FindPath(self):
-        
-        if len(self.Current.edges) == 1 and self.Current != self.Start and self.Current != self.End:
-            self.Traveled.pop(len(self.Traveled)-1)
-
-            return None
+        self.Traveled.append(self.Current)
+        print("Pathfinding...")
         if self.Current == self.End:
             print("WE HAVE FOUND THE END")
-            self.Traveled.append(self.Current)
+            
             NewList = CopyList(self.Traveled)
             self.Paths.append(NewList)
-            self.Traveled.clear()
+            self.Traveled.remove(self.Current)
             return 
         
         
@@ -54,11 +51,12 @@ class pathfinder():
                 if self.Traveled[y] == self.Current.edges[x]:
                     Con = False
             if Con:
-                self.Traveled.append(self.Current)
+                
                 
                 FoundPath = pathfinder(Graph,self.Start,self.End,self.Current.edges[x],self.Traveled,self.Paths).FindPath()
                 if FoundPath is not None:
                     return FoundPath
+        self.Traveled.remove(self.Current)
         return
         
                 
@@ -125,5 +123,38 @@ Finder3 = pathfinder(Graph3,Graph3.nodes[0],Graph3.nodes[7],Graph3.nodes[0],[],[
 Finder3.FindPath()
 print(Finder3.Paths)
 
+Graph4 = graph()
+Graph4.Node(node([],1))
+Graph4.Node(node([],2))
+Graph4.Node(node([],3))
+Graph4.Node(node([],4))
+Graph4.Node(node([],5))
+Graph4.Node(node([],6))
+Graph4.Node(node([],7))
+Graph4.Node(node([],8))
+Graph4.Node(node([],9))
+Graph4.Node(node([],10))
+Graph4.Node(node([],11))
+Graph4.Node(node([],12))
+
+Graph4.Edge(1,2)
+Graph4.Edge(8,11)
+Graph4.Edge(2,3)
+Graph4.Edge(1,5)
+Graph4.Edge(1,4)
+Graph4.Edge(4,5)
+Graph4.Edge(5,6)
+Graph4.Edge(7,8)
+Graph4.Edge(8,12)
+Graph4.Edge(10,9)
+Graph4.Edge(10,11)
+Graph4.Edge(11,12)
+Graph4.Edge(7,12)
+Graph4.Edge(5,8)
+
+
+Finder4=pathfinder(Graph4,Graph4.nodes[0],Graph4.nodes[11],Graph3.nodes[0],[],[])
+Finder4.FindPath()
+print(Finder4.Paths)
 
     
