@@ -32,33 +32,31 @@ class pathfinder():
         self.Paths=Paths
     def FindPath(self):
         self.Traveled.append(self.Current)
-        print("Pathfinding...")
         if self.Current == self.End:
-            print("WE HAVE FOUND THE END")
-            
             NewList = CopyList(self.Traveled)
+            print(NewList)
             self.Paths.append(NewList)
             self.Traveled.remove(self.Current)
             return 
-        
-        
         for x in range (0,len(self.Current.edges)):
-            
             Con = True
             for y in range(0,len(self.Traveled)):
-                
-                
                 if self.Traveled[y] == self.Current.edges[x]:
                     Con = False
             if Con:
-                
-                
                 FoundPath = pathfinder(Graph,self.Start,self.End,self.Current.edges[x],self.Traveled,self.Paths).FindPath()
                 if FoundPath is not None:
                     return FoundPath
         self.Traveled.remove(self.Current)
         return
-        
+    def FindShortest(self):
+        ShortestPath = self.Paths[0]
+        for x in range (0,len(self.Paths)):
+            CurrentPath = self.Paths[x]
+            if len(CurrentPath) < len(ShortestPath):
+                ShortestPath=CurrentPath
+        return ShortestPath
+
                 
             
 
@@ -80,7 +78,7 @@ Graph.Edge(4,5)
 Graph.Edge(5,6)
 Finder = pathfinder(Graph,Graph.nodes[0],Graph.nodes[5],Graph.nodes[0],[],[])
 Finder.FindPath()
-print(Finder.Paths)
+#print(Finder.Paths)
 
 Graph2 = graph()
 Graph2.Node(node([],1))
@@ -97,7 +95,7 @@ Graph2.Edge(5,6)
 Graph2.Edge(3,6)
 Finder2 = pathfinder(Graph2,Graph2.nodes[0],Graph2.nodes[5],Graph2.nodes[0],[],[])
 Finder2.FindPath()
-print(Finder2.Paths)
+#print(Finder2.Paths)
 
 Graph3 = graph()
 Graph3.Node(node([],1))
@@ -121,7 +119,7 @@ Graph3.Edge(7,8)
 
 Finder3 = pathfinder(Graph3,Graph3.nodes[0],Graph3.nodes[7],Graph3.nodes[0],[],[])
 Finder3.FindPath()
-print(Finder3.Paths)
+#print(Finder3.Paths)
 
 Graph4 = graph()
 Graph4.Node(node([],1))
@@ -153,8 +151,18 @@ Graph4.Edge(7,12)
 Graph4.Edge(5,8)
 
 
-Finder4=pathfinder(Graph4,Graph4.nodes[0],Graph4.nodes[11],Graph3.nodes[0],[],[])
+Finder4=pathfinder(Graph4,Graph4.nodes[0],Graph4.nodes[11],Graph4.nodes[0],[],[])
 Finder4.FindPath()
-print(Finder4.Paths)
+print(Finder4.FindShortest())
+
+Graph5=graph()
+for x in range(0,10):
+    Graph5.Node(node([],x))
+for y in range(0,len(Graph5.nodes)):
+    for z in range(0,len(Graph5.nodes)):
+        Graph5.Edge(y,z)
+Finder5 = pathfinder(Graph5,Graph5.nodes[0],Graph5.nodes[9],Graph5.nodes[0],[],[])
+Finder5.FindPath()
+print(Finder5.FindShortest())
 
     
