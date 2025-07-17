@@ -26,6 +26,17 @@ class graph():
             if self.nodes[Node1].edges[x]==self.nodes[Node2]:
                 return True
         return False
+    def CreateNew(self,Length,Amount):
+        Graph = graph()
+        for x in range(0,Length):
+            for y in range(0,Length):
+                Node = node([],[x,y])
+                Node.xCoor = x
+                Node.yCoor = y
+                Graph.Node(Node)
+            for z in range(0,Length):
+                Graph.Edge(Graph.nodes[])
+        
 class BreadthFirst():
     def __init__(self,Graph,Start,End,todo,Distance):
         self.graph = Graph
@@ -35,19 +46,17 @@ class BreadthFirst():
         self.distance = Distance
     def AddList(self):
         self.todo.append(self.start)
-        while self.todo != []:
-
-            
-            for x in range(0,len(self.todo[0].edges)):
-               
-                if self.todo[0].edges[x].color == "white":
-                    self.todo[0].edges[x].color = "gray"
-                    if self.todo[0].edges[x].predecesor is  None:
-
-                        self.todo[0].edges[x].predecesor= self.todo[0]
-
-                    self.todo.append(self.todo[0].edges[x])
-            self.todo.pop(0)
+        y=0
+        while y < len(self.todo): 
+            for x in range(0,len(self.todo[y].edges)):
+                if self.todo[y].edges[x].color == "white":
+                    self.todo[y].edges[x].color = "gray"
+                    if self.todo[y].edges[x].predecesor is  None:
+                        self.todo[y].edges[x].predecesor= self.todo[y]
+                    self.todo.append(self.todo[y].edges[x])
+                if self.todo[y].edges[x]== self.end:
+                    return
+            y+=1
     def FindPath(self):
         Con = True
         self.Path = []
