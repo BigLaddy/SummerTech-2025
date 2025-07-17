@@ -11,12 +11,20 @@ class node():
         self.color = "white"
         self.predecesor = None
     def __repr__(self):
-         return str(self.name)
+        if self.color =="white":
+            return "\u26AA "
+        if self.color == "gray":
+            return "\u26AB "
+        if self.color == "black":
+            return " \u26AC "
+        if self.color =="fancy":
+            return " \u25C9 "
     def GetColor(self):
         return self.Color
 class graph():
     def __init__(self):
         self.nodes = []
+        self.Length = 0
     def FromCoor(self,Coor):
         for x in range(0,len(self.nodes)):
             if [self.nodes[x].xCoor,self.nodes[x].yCoor] == Coor:
@@ -37,17 +45,19 @@ class graph():
                 Node2 = self.nodes[y]
         if Node2 is None:
             return
-        print(Node1,Node2)
+        
         Node1.edges.append(Node2)
         Node2.edges.append(Node1)
         
 
     def HasEdge(self,Node1,Node2):
-        for x in range(0,len(self.nodes[Node1].edges)):
-            if self.nodes[Node1].edges[x]==self.nodes[Node2]:
+        for x in range(0,len(Node1.edges)):
+            if Node1.edges[x] == Node2:
                 return True
+            
         return False
     def CreateNew(self,Length,Amount):
+        
         Graph = graph()
         for x in range(0,Length):
             for y in range(0,Length):
@@ -55,15 +65,49 @@ class graph():
                 Node.xCoor = x
                 Node.yCoor = y
                 Graph.Node(Node)
-        for x in range(0,Length*2):
-                
+        for x in range(0,Length*2):  
             for z in range(0,Length):
                 Graph.CoorEdge([x,z],[x,z+1])
                 Graph.CoorEdge([x,z],[x+1,z])
-        for x in range(0,Amount):
-            Node = Graph.nodes[random.randrange(0,len(Graph.nodes)-1)]
-            Node.edges.pop(random.randrange(0,len(Node.edges)-1))
+        x=0
+        while x < Amount:
+        
+            Node = Graph.nodes[random.randrange(0,len(Graph.nodes))]
+            
+            if Node.edges == []:
+                continue
+            Node2 = Node.edges[random.randrange(0,len(Node.edges))]
+            Node.edges.remove(Node2)
+            Node2.edges.remove(Node)
+
+            x +=1
+        Graph.Length = Length
         return Graph
+    def Display(self):
+        for x in range(0,self.Length):
+            for y in range(0,self.Length):
+                Node = self.FromCoor([y,x])
+                print(Node,end='')
+                space = True
+                for p in range(0,len(Node.edges)):
+                    if Node.edges[p] == self.FromCoor([y+1,x]):
+                        print("-",end='')
+                        space = False
+                if space:
+                    print(' ',end='')
+            print()
+            for y in range(0,self.Length):
+                Node = self.FromCoor([y,x])
+                Node2 = self.FromCoor([y,x+1])
+                if self.HasEdge(Node,Node2):
+                    print(' |  ',end="")
+                else:
+                    print("    ",end="")
+
+                
+            print()
+
+                
             
 
             
@@ -94,17 +138,27 @@ class BreadthFirst():
         Con = True
         self.Path = []
         self.Path.append(self.end)
+        self.end.color = "fancy" 
+        self.start.color = "fancy"
         while Con:
+            if self.Path[len(self.Path)-1].predecesor is None:
+                print("No valid path")
+                return
+            
+            
+            self.Path[len(self.Path)-1].predecesor.color = "black"
+            self.start.color = "fancy"
             self.Path.append(self.Path[len(self.Path)-1].predecesor)
             if self.Path[len(self.Path)-1] == self.start:
                 Con = False
         self.Path.reverse()
         print(self.Path)
 Graph10 = graph()
-Graph10 = Graph10.CreateNew(10,10)
-Finder10 = BreadthFirst(Graph10,Graph10.FromCoor([0,0]),Graph10.FromCoor([9,9]))
+Graph10 = Graph10.CreateNew(41,1500)
+Finder10 = BreadthFirst(Graph10,Graph10.FromCoor([random.randrange(0,40),random.randrange(0,40)]),Graph10.FromCoor([random.randrange(0,40),random.randrange(0,40)]))
 Finder10.AddList()
 Finder10.FindPath()
+Graph10.Display()
 # Graph = graph()
 # Graph.Node(node([],1))
 # Graph.Node(node([],2))
