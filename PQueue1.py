@@ -56,7 +56,12 @@ class ListOfLists():
             if len(self.PQueue) >= priority:
                 bigEnough = True
         self.PQueue[priority].append(element)
+    def remove(self):
+        val = self.PQueue[len(self.PQueue)-1][0]
 
+        
+
+        
     
 
 def freakyprint(val):
