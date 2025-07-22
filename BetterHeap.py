@@ -15,23 +15,11 @@ class Node():
         self.value = value
     def __repr__(self):
         return str(self.priority)
-
-
-class badHeap():
-    def __init__(self):
-        self.root = None
-        
-    def add(self,priority,value):
-        Node = Node(None,None,None,None,None,priority,value)
-        self.current = self.root
-        if Node.priority>self.current.priority:
-            if self.current.sizeleft>self.current.sizeright:
-                Node.right = self.current
-                self.current.parent = Node
 class Heap():
     def __init__(self):
         self.Heap = []
     def add(self,priority,value):
+        #O(log n)
         newNode = Node(priority,value)
         self.Heap.append(newNode)
         limit = False
@@ -49,6 +37,7 @@ class Heap():
                 continue
             limit = True 
     def remove(self):
+        #O(log n)
         y = self.Heap[0]
         self.Heap[0] = self.Heap[len(self.Heap)-1]
         self.Heap[len(self.Heap)-1] = y
@@ -87,9 +76,3 @@ for x in range(0,500000):
     heap.add(x,x)
 for x in range(0,500000):
     print(heap.remove())
-
-
-
-
-
-                                                               
