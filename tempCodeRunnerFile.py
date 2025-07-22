@@ -1,2 +1,1 @@
-    limit = True
-                    continue
+return int((index-2)/2)

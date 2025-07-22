@@ -6,9 +6,9 @@ def getParent(index):
     if index == 0:
         return None
     if index%2 == 1:
-        return int((index-2)/2)
-    else:
         return int((index-1)/2)
+    else:
+        return int((index-2)/2)
 class Node():
     def __init__(self,priority,value):
         self.priority = priority
@@ -33,22 +33,19 @@ class Heap():
         self.Heap = []
     def add(self,priority,value):
         newNode = Node(priority,value)
-        self.size = len(self.Heap)
         self.Heap.append(newNode)
         limit = False
-        if self.size == 0:
-            return
-        index = self.size
+        index = len(self.Heap)-1
         while limit == False:
-            x = getParent(index)
-            if x is None:
+            parent = getParent(index)
+            if parent is None:
                 limit = True
                 continue
-            if self.Heap[x].priority < priority:
-                temp = self.Heap[x]
-                self.Heap[x] = newNode
-                self.Heap[index]= temp
-                index = x
+            if self.Heap[parent].priority < self.Heap[index].priority:
+                above = self.Heap[parent]
+                self.Heap[parent] = self.Heap[index]
+                self.Heap[index]= above
+                index = parent
                 continue
             limit = True 
     def remove(self):
@@ -89,11 +86,10 @@ class Heap():
             limit = True
         return value
 heap = Heap()
-for x in range(0,10):
+for x in range(0,500000):
     heap.add(x,x)
-for x in range(0,10):
+for x in range(0,500000):
     print(heap.remove())
-
 
 
 
