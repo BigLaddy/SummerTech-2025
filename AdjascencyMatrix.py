@@ -46,11 +46,12 @@ class Graph():
             return True
         return False
             
-    def neighbors(node1):
-    #O(degree of node1)
+    def neighbors(self,node1):
+    #O(n)
         list = []
         for x in range(0,len(node1.edges)):
-            list.append(node1.edges[x])
+            if node1.edges[x] is not None:
+                list.append(node1.edges[x])
         return list
     def nodes(self):
     #O(1)
@@ -63,3 +64,4 @@ z = graph.add()
 graph.edge(x,y)
 print(graph.check(x,y))
 print(graph.check(x,z))
+print(graph.neighbors(x))
