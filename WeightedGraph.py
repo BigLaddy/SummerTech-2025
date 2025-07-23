@@ -34,9 +34,7 @@ class Graph():
             edge1 = Edge(node1,cost)
             edge2 = Edge(node2,cost)
             node1.edges.append(edge2)
-            node2.edges.append(edge1)
-
-                
+            node2.edges.append(edge1)             
     def check(self,node1,node2):
     #O(degree of node1)
         for x in range(0,len(node1.edges)):
@@ -48,7 +46,7 @@ class Graph():
             if node1.edges[x].node == node2:
                 return node1.edges[x].cost
         return None
-    def neighbors(node1):
+    def neighbors(self,node1):
     #O(degree of node1)
         list = []
         for x in range(0,len(node1.edges)):
@@ -57,12 +55,4 @@ class Graph():
     def nodes(self):
     #O(1)
         return self.nodes
-    
-graph = Graph()
-x = graph.add(1)
-y = graph.add(2)
-z = graph.add(3)
-graph.edge(x,y,5)
-graph.edge(x,y,7)
-print(graph.getCost(x,y))
-print(graph.getCost(x,z))
+

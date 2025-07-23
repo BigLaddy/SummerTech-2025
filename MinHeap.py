@@ -18,17 +18,6 @@ class Node():
         return str(self.priority)
 
 
-class badHeap():
-    def __init__(self):
-        self.root = None
-        
-    def add(self,priority,value):
-        Node = Node(None,None,None,None,None,priority,value)
-        self.current = self.root
-        if Node.priority>self.current.priority:
-            if self.current.sizeleft>self.current.sizeright:
-                Node.right = self.current
-                self.current.parent = Node
 class Heap():
     def __init__(self):
         self.Heap = []
@@ -85,15 +74,3 @@ class Heap():
         return value
 list = []
 heap = Heap()
-for x in range(0,200000):
-    heap.add(random.randrange(0,100000000000000),x)
-for x in range(0,200000):
-    list.append(heap.remove())
-
-def insure(list):
-    for x in range(0,len(list)-1):
-        print(list[x],list[x+1])
-        if list[x].priority > list[x+1].priority:
-            return False
-    return True
-assert insure(list)

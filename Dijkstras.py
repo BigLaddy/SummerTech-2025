@@ -1,42 +1,61 @@
 import WeightedGraph
 import MinHeap
 
-class BreadthFirst():
+class Dijkstras():
     def __init__(self,Graph,Start,End):
         self.graph = Graph
         self.start = Start
         self.end = End
-        self.todo = []
+        self.todo = MinHeap.Heap()
         
-    def AddList(self):
-        self.todo.append(self.start)
-        y=0
-        while y < len(self.todo): 
-            for x in range(0,len(self.todo[y].edges)):
-                if self.todo[y].edges[x].color == "white":
-                    self.todo[y].edges[x].color = "gray"
-                    if self.todo[y].edges[x].predecesor is  None:
-                        self.todo[y].edges[x].predecesor= self.todo[y]
-                    self.todo.append(self.todo[y].edges[x])
-                if self.todo[y].edges[x]== self.end:
-                    return
-            y+=1
-    def FindPath(self):
+    def getDistance(self):
+        self.todo.add(0,self.start)
+        done = False
+        for x in range(0,len(self.graph.nodes)):
+            self.graph.nodes[x].distance = None
+        while not done:
+            current = self.todo.remove()
+            edges = self.graph.neighbors(current)
+            for x in range(0,len(edges)):
+                if not node.done:
+                    cost = self.graph.getCost(edges[x])
+                    node = edges[x]
+                    dist = current.distance + cost
+                    if node.distance is None or dist <= node.distance:
+                        node.distance = current.distance + cost
+                    if node == self.end:
+                        return
+                    self.todo.add(cost,node)
+            current.done = True
+        return None
+    def getPath(self):
         Con = True
-        self.Path = []
-        self.Path.append(self.end)
-        self.end.color = "fancy" 
-        self.start.color = "fancy"
+        self.path = []
+        self.path.append(self.end)
+        current = self.end
         while Con:
-            if self.Path[len(self.Path)-1].predecesor is None:
-                print("No valid path")
-                return
-            
-            
-            self.Path[len(self.Path)-1].predecesor.color = "black"
-            self.start.color = "fancy"
-            self.Path.append(self.Path[len(self.Path)-1].predecesor)
-            if self.Path[len(self.Path)-1] == self.start:
+            neighbors = self.graph.neighbors(current)
+            next = neighbors[0]
+            for x in range(0,len(neighbors)):
+                if neighbors[x].distance <= next.distance:
+                    next = neighbors[x]
+            current = next
+            self.path.append(current)
+            if current == self.start:
                 Con = False
-        self.Path.reverse()
-        print(self.Path)
+                continue
+        self.path.reverse()
+        return self.path
+
+        
+                
+
+Graph = WeightedGraph.Graph()
+x = Graph.add(5)
+y = Graph.add(4)
+Graph.edge(x,y,5)
+finder = Dijkstras(Graph,x,y)
+finder.getDistance()
+
+
+       

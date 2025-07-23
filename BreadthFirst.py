@@ -143,9 +143,7 @@ class BreadthFirst():
         while Con:
             if self.Path[len(self.Path)-1].predecesor is None:
                 print("No valid path")
-                return
-            
-            
+                return  
             self.Path[len(self.Path)-1].predecesor.color = "black"
             self.start.color = "fancy"
             self.Path.append(self.Path[len(self.Path)-1].predecesor)
