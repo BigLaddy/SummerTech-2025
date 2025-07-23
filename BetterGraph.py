@@ -17,7 +17,7 @@ class Graph():
         if not self.check(node1,node2):
             node1.edges.append(node2)
             node2.edges.append(node1)
-    def check(node1,node2):
+    def check(self,node1,node2):
     #O(degree of node1)
         for x in range(0,len(node1.edges)):
             if node1.edges[x] == node2:
@@ -36,6 +36,9 @@ class Graph():
 graph = Graph()
 x = graph.add(1)
 y = graph.add(2)
+z = graph.add(3)
 graph.edge(x,y)
+print(graph.check(x,y))
+print(graph.check(x,z))
 
     
