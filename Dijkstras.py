@@ -9,23 +9,21 @@ class Dijkstras():
         self.todo = MinHeap.Heap()
         
     def getDistance(self):
-        self.todo.add(0,self.start)
+        #O(m log m)
+        self.todo.add(0,self.start)#O(1)
         done = False
-        for x in range(0,len(self.graph.nodes)):
+        for x in range(0,len(self.graph.nodes)):#O(n)
             self.graph.nodes[x].distance = None
             self.graph.nodes[x].done = False
         self.start.distance = 0
-        while not done:
-            print(self.todo.Heap)
-            current = self.todo.remove()
-            print(current)
-            edges = self.graph.neighbors(current.value)
+        while not done:#O(number of edges)
+            current = self.todo.remove()#O(log(number of edges))
+            if current.value.done == True:
+                continue
+            edges = self.graph.neighbors(current.value)#O(n)
             node = edges[0].node
-            for x in range(0,len(edges)):
+            for x in range(0,len(edges)):#O(n)
                 if  current.value == self.end:
-                        for x in range(0,len(self.graph.nodes)):
-                            print(self.graph.nodes[x].distance)
-
                         return
                 node = edges[x].node
                 if not node.done:
@@ -33,19 +31,20 @@ class Dijkstras():
                     dist = current.value.distance + cost
                     if node.distance is None or dist <= node.distance:
                         node.distance = current.value.distance + cost
-                    self.todo.add(node.distance,node)
+                    self.todo.add(node.distance,node)#O(log(number of edges))
 
             current.value.done = True
         return None
     def getPath(self):
+        #O(m)
         Con = True
         self.path = []
         self.path.append(self.end)
         current = self.end
-        while Con:
-            neighbors = self.graph.neighbors(current)
+        while Con:#O(n)
+            neighbors = self.graph.neighbors(current)#O(n)
             next = neighbors[0]
-            for x in range(0,len(neighbors)):
+            for x in range(0,len(neighbors)):#O(m )
                 if neighbors[x].node.distance+neighbors[x].cost <= next.node.distance+next.cost:
                     next = neighbors[x]
             current = next.node
@@ -53,7 +52,7 @@ class Dijkstras():
             if current == self.start:
                 Con = False
                 continue
-        self.path.reverse()
+        self.path.reverse()#O(n)
         return self.path
 
         

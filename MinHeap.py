@@ -22,6 +22,7 @@ class Heap():
     def __init__(self):
         self.Heap = []
     def add(self,priority,value):
+        #O(log n)
         newNode = Piece(priority,value)
         self.Heap.append(newNode)
         limit = False
@@ -39,6 +40,7 @@ class Heap():
                 continue
             limit = True 
     def remove(self):
+        #O(log n)
         y = self.Heap[0]
         self.Heap[0] = self.Heap[len(self.Heap)-1]
         self.Heap[len(self.Heap)-1] = y
