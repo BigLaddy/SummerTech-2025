@@ -3,6 +3,8 @@ class Node():
     #O(1)
         self.name = name
         self.edges = []
+    def __repr__(self):
+        return "Node "+str(self.name)
 class Edge():
     def __init__(self,node,cost):
         self.node = node

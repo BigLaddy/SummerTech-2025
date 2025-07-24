@@ -13,20 +13,25 @@ class Dijkstras():
         done = False
         for x in range(0,len(self.graph.nodes)):
             self.graph.nodes[x].distance = None
+            self.graph.nodes[x].done = False
+        self.start.distance = 0
         while not done:
             current = self.todo.remove()
-            edges = self.graph.neighbors(current)
+            edges = self.graph.neighbors(current.value)
+            node = edges[0].node
             for x in range(0,len(edges)):
                 if not node.done:
-                    cost = self.graph.getCost(edges[x])
-                    node = edges[x]
-                    dist = current.distance + cost
+                    cost = edges[x].cost
+                    node = edges[x].node
+                    dist = current.value.distance + cost
                     if node.distance is None or dist <= node.distance:
-                        node.distance = current.distance + cost
-                    if node == self.end:
+                        node.distance = current.value.distance + cost
+                    if  current.value == self.end:
                         return
-                    self.todo.add(cost,node)
-            current.done = True
+                    self.todo.add(dist,node)
+
+            current.value.done = True
+            print(current)
         return None
     def getPath(self):
         Con = True
@@ -35,10 +40,10 @@ class Dijkstras():
         current = self.end
         while Con:
             neighbors = self.graph.neighbors(current)
-            next = neighbors[0]
+            next = neighbors[0].node
             for x in range(0,len(neighbors)):
-                if neighbors[x].distance <= next.distance:
-                    next = neighbors[x]
+                if neighbors[x].node.distance <= next.distance:
+                    next = neighbors[x].node
             current = next
             self.path.append(current)
             if current == self.start:
@@ -53,9 +58,13 @@ class Dijkstras():
 Graph = WeightedGraph.Graph()
 x = Graph.add(5)
 y = Graph.add(4)
+z = Graph.add(3)
 Graph.edge(x,y,5)
-finder = Dijkstras(Graph,x,y)
+Graph.edge(y,z,5)
+Graph.edge(x,z,1000)
+finder = Dijkstras(Graph,x,z)
 finder.getDistance()
+print(finder.getPath())
 
 
        

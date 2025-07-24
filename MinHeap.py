@@ -10,19 +10,19 @@ def getParent(index):
         return int((index-1)/2)
     else:
         return int((index-2)/2)
-class Node():
+class Piece():
     def __init__(self,priority,value):
         self.priority = priority
         self.value = value
     def __repr__(self):
-        return str(self.priority)
-
+        return "Piece "+"("+repr(self.priority)+","+repr(self.value)+")"
+Piece(5, "hello")
 
 class Heap():
     def __init__(self):
         self.Heap = []
     def add(self,priority,value):
-        newNode = Node(priority,value)
+        newNode = Piece(priority,value)
         self.Heap.append(newNode)
         limit = False
         index = len(self.Heap)-1

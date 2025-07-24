@@ -1,1 +1,1 @@
-return int((index-2)/2)
+current
