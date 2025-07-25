@@ -1,6 +1,6 @@
 import multiprocessing
 import time
-def get():
+def get(x):
     print("hello")
     time.sleep(1)
     print("I'm back")
@@ -11,7 +11,7 @@ def hey():
         print("hey")
     print(Pipe[1].recv())
     Pipe[1].send("Sent")
-Process = multiprocessing.Process(target = get)
+Process = multiprocessing.Process(target = get,args = [])
 Process2 = multiprocessing.Process(target = hey)
 Pipe = multiprocessing.Pipe()
 
